@@ -1,4 +1,4 @@
-FROM docker.leryn.top/node:16-slim AS build
+FROM node:16-slim AS build
 
 WORKDIR /opt
 
@@ -11,7 +11,7 @@ RUN pnpm install
 COPY . .
 RUN pnpm build
 
-FROM docker.leryn.top/nginx:1.21.1 AS publish
+FROM nginx:1.21.1 AS publish
 
 WORKDIR /usr/share/nginx/html/
 

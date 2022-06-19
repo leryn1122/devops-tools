@@ -7,12 +7,14 @@ COPY . /opt
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
             make \
-          && rm -rf /var/lib/apt/lists/ \
-          && apt-get autoremove -y \
-          && apt-get autoclean -y \
-    \
-      && go mod tidy \
-      && make build
+      && \
+    apt-get autoremove -y && apt-get autoclean -y \
+      && \
+    rm -rf /var/lib/apt/lists/ \
+      && \
+    go mod tidy \
+      && \
+    make build
 
 FROM debian:buster-slim AS publish
 
@@ -21,9 +23,10 @@ WORKDIR /opt
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates  \
         netbase \
-      && rm -rf /var/lib/apt/lists/ \
-      && apt-get autoremove -y \
-      && apt-get autoclean -y
+      && \
+    apt-get autoremove -y && apt-get autoclean -y \
+      && \
+    rm -rf /var/lib/apt/lists/
 
 COPY --from=build /opt .
 

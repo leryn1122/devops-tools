@@ -17,7 +17,7 @@ RUN { \
         echo "deb https://mirrors.bfsu.edu.cn/debian-security bullseye-security main contrib non-free"; \
     } > /etc/apt/sources.list \
       && \ 
-    apt update && apt-get install -f -y \
+    apt-get update -y && apt-get install -f -y \
         apt-transport-https ca-certificates \
         git vim-common \
       && \
@@ -29,6 +29,8 @@ RUN { \
       [[ x"${DEV_LANG}" = x'golang' ]] && echo " golang "; \
     } | xargs apt-get install -y \
       && \
-    rm -rf /var/lib/apt/lists/* \
+    apt-get autoremove -y && apt-get autoclean -y \
+      && \
+    rm -rf /var/lib/apt/lists/ \
       && \
     chsh -s /usr/bin/zsh
