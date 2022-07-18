@@ -80,7 +80,7 @@ class Yuque:
     result = self.invoke_api(url).get('data')
     content_in_md = result.get('body')
     new_content_in_md, images = self.modify_redirect_local_image(content_in_md)
-    markdown_file = os.path.join(self.export_dir, title.replace(' ', '') + '.md')
+    markdown_file = os.path.join(self.export_dir, slug.replace(' ', '') + '.md')
     with open(markdown_file, 'w') as f:
       f.write(new_content_in_md)
 
